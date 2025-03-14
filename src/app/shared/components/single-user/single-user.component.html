@@ -1,0 +1,53 @@
+<!-- src/app/components/user-item/user-item.component.html -->
+<div class="bg-gray-50 rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center border border-gray-200 hover:shadow-md transition duration-300">
+    <div class="flex items-center space-x-4 w-full sm:w-auto">
+      <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+        <span class="text-blue-600 font-bold text-lg">{{ user.name.charAt(0) }}</span>
+      </div>
+      <div class="min-w-0 flex-1">
+        <h3 class="font-medium text-gray-800 truncate">{{ user.name }}</h3>
+        <p class="text-sm text-gray-600 truncate">{{ user.email }}</p>
+        <div class="flex items-center mt-1 space-x-2 flex-wrap gap-y-1">
+          <span class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded">{{ user.role }}</span>
+          <span class="text-xs px-2 py-1 rounded" 
+                [ngClass]="{'bg-green-100 text-green-800': user.status === 'active', 
+                           'bg-red-100 text-red-800': user.status === 'inactive'}">
+            {{ user.status | titlecase }}
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex items-center space-x-4 mt-4 sm:mt-0 w-full sm:w-auto justify-between sm:justify-end">
+      <div class="text-sm text-gray-500">
+        Joined: {{ user.joinDate | date:'mediumDate' }}
+      </div>
+      
+      <div class="relative">
+        <!-- Options button -->
+        <button (click)="toggleDropdown()" class="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+          </svg>
+        </button>
+        
+        <!-- Dropdown menu -->
+        <div *ngIf="showDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+          <div class="py-1">
+            <button (click)="activateUser()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              Activate User
+            </button>
+            <button (click)="deactivateUser()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              Deactivate User
+            </button>
+            <button (click)="promoteUser()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              Change Role
+            </button>
+            <button (click)="deleteUser()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+              Delete User
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

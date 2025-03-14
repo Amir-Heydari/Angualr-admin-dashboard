@@ -1,0 +1,36 @@
+.chart-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    overflow-y: hidden;
+}
+
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 400px; /* Ensure minimum height for better visualization */
+}
+
+::ng-deep {
+
+    /* Custom styles for charts if needed */
+    .ngx-charts {
+        float: none;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* Improve bar chart appearance */
+    .ngx-charts .bar {
+        transition: all 0.3s ease;
+    }
+
+    /* Ensure tooltips are visible */
+    .ngx-charts-tooltip-content {
+        z-index: 1000;
+    }
+}

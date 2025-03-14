@@ -1,0 +1,140 @@
+<!-- src/app/components/reports/reports.component.html -->
+<div class="container mx-auto p-6">
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h1 class="text-2xl font-bold text-gray-800 mb-6">Admin Dashboard Reports</h1>
+      
+      <!-- Summary Metrics Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <!-- Total Users Card -->
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Total Users</p>
+              <p class="text-2xl font-bold text-gray-800">{{ summaryMetrics.totalUsers }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Active Users Card -->
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Active Users</p>
+              <p class="text-2xl font-bold text-gray-800">{{ summaryMetrics.activeUsers }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- New Users Card -->
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">New Users (Month)</p>
+              <p class="text-2xl font-bold text-gray-800">{{ summaryMetrics.newUsersThisMonth }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Avg Session Time Card -->
+        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+          <div class="flex items-center">
+            <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 font-medium">Avg Session Time</p>
+              <p class="text-2xl font-bold text-gray-800">{{ summaryMetrics.averageSessionTime }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chart Section -->
+      <div class="grid grid-cols-1 gap-6">
+        <!-- User Activity Chart -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h2 class="text-lg font-semibold mb-4">User Activity Trends</h2>
+          <div class="w-full overflow-x-auto">
+            <app-chart-component
+              [data]="userActivityData"
+              [chartType]="'line'"
+              [xAxisLabel]="'Month'"
+              [yAxisLabel]="'Users'"
+              [showLegend]="true"
+              [showXAxisLabel]="true"
+              [showYAxisLabel]="true"
+              [colorScheme]="'vivid'">
+            </app-chart-component>
+          </div>
+        </div>
+        
+        <!-- User Role Distribution Chart -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h2 class="text-lg font-semibold mb-4">User Role Distribution</h2>
+          <div class="w-full overflow-x-auto">
+            <app-chart-component
+              [data]="userRoleDistributionFormatted"
+              [chartType]="'bar'"
+              [xAxisLabel]="'Role'"
+              [yAxisLabel]="'Count'"
+              [showLegend]="false"
+              [showXAxisLabel]="true"
+              [showYAxisLabel]="true"
+              [colorScheme]="'vivid'">
+            </app-chart-component>
+          </div>
+        </div>
+        
+        <!-- User Growth Chart -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h2 class="text-lg font-semibold mb-4">Quarterly User Growth</h2>
+          <div class="w-full overflow-x-auto">
+            <app-chart-component
+              [data]="userGrowthDataFormatted"
+              [chartType]="'bar'"
+              [xAxisLabel]="'Quarter'"
+              [yAxisLabel]="'New Users'"
+              [showLegend]="false"
+              [showXAxisLabel]="true"
+              [showYAxisLabel]="true"
+              [colorScheme]="'vivid'">
+            </app-chart-component>
+          </div>
+        </div>
+        
+        <!-- User Status Chart -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h2 class="text-lg font-semibold mb-4">User Status Distribution</h2>
+          <div class="w-full overflow-x-auto">
+            <app-chart-component
+              [data]="userStatusDataFormatted"
+              [chartType]="'bar'"
+              [xAxisLabel]="'Status'"
+              [yAxisLabel]="'Count'"
+              [showLegend]="false"
+              [showXAxisLabel]="true"
+              [showYAxisLabel]="true"
+              [colorScheme]="'vivid'">
+            </app-chart-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

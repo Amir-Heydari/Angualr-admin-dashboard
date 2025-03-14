@@ -1,0 +1,16 @@
+<div class="chart-container w-full min-h-[300px]">
+    @if (chartType === 'line') {
+    <ngx-charts-line-chart [view]="chartDimensions" [results]="(chartData$ | async) || []" [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="true" [yAxis]="true"
+        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [scheme]="colorScheme" [autoScale]="true"
+        [animations]="true" [legendPosition]="LegendPosition.Below" (select)="onSelect($event)" (window:resize)="onResize()">
+    </ngx-charts-line-chart>
+    } @else if (chartType === 'bar') {
+    <ngx-charts-bar-vertical-2d [view]="chartDimensions" [results]="(chartData$ | async) || []" [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="true" [yAxis]="true"
+        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [scheme]="colorScheme"
+        [yAxisTickFormatting]="formatYAxisTick" [animations]="true" [legendPosition]="LegendPosition.Right"
+        (select)="onSelect($event)" (window:resize)="onResize()">
+    </ngx-charts-bar-vertical-2d>
+    }
+</div>

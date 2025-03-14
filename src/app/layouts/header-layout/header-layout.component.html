@@ -1,0 +1,63 @@
+<header class="bg-white shadow">
+    <div class="flex justify-between items-center py-4 px-6">
+        <!-- Left side - Menu toggle button -->
+        <div class="flex items-center">
+            <button (click)="toggleSidebar.emit()" class="text-gray-500 focus:outline-none focus:text-gray-600">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+
+            <div class="ml-4 text-xl font-semibold text-gray-800">Admin Panel</div>
+        </div>
+
+        <!-- Right side - User profile and notification -->
+        <div class="flex items-center">
+            <!-- Notifications -->
+            <div class="relative mr-4">
+                <button class="flex text-gray-500 focus:outline-none focus:text-gray-600">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15 17H9M12 22C13.6569 22 15 20.6569 15 19H9C9 20.6569 10.3431 22 12 22ZM18 10C18 7.87827 17.1571 5.84344 15.6569 4.34315C14.1566 2.84285 12.1217 2 10 2C7.87827 2 5.84344 2.84285 4.34315 4.34315C2.84285 5.84344 2 7.87827 2 10V15H18V10Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                </button>
+            </div>
+
+            <!-- User Profile Dropdown -->
+            <div class="relative">
+                <button (click)="toggleProfileMenu()" class="flex items-center space-x-2 focus:outline-none">
+                    <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white">
+                        {{ userInfo?.name?.charAt(0) || 'U' }}
+                    </div>
+                    <span class="text-gray-700">{{ userInfo?.name || 'User' }}</span>
+                    <svg class="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <!-- Profile Dropdown Menu -->
+                <div *ngIf="isProfileMenuOpen"
+                    class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                    <a routerLink="/settings/profile"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-500 hover:text-white">
+                        Your Profile
+                    </a>
+                    <a routerLink="/settings"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-500 hover:text-white">
+                        Settings
+                    </a>
+                    <div class="border-t border-gray-200"></div>
+                    <a (click)="logout()"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-500 hover:text-white cursor-pointer">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
